@@ -9,7 +9,8 @@ import SwiftUI
 
 struct DiaryListView: View {
     
-    @State var list: [MoodDiary] = MoodDiary.list
+    @StateObject var vm: DiaryListViewModel
+    @State var isPresenting: Bool = false
     
     let layout: [GridItem] = [
         GridItem(.flexible()),
@@ -20,17 +21,78 @@ struct DiaryListView: View {
     ]
     
     var body: some View {
-        LazyVGrid(columns: layout, content: {
-            ForEach(list) { item in
-                MoodDiaryCell(diary: item)
-                    .frame(height: 50)
+        NavigationView(content: {
+            VStack {
+                ScrollView {
+                    LazyVGrid(columns: layout) {
+                        ForEach(vm.keys, id:\.self) { key in
+                            Section {
+                                let items = vm.dic[key] ?? []
+                                let orderedItems = items.sorted(by: { $0.date < $1.date })
+                                ForEach(orderedItems) { item in
+                                    NavigationLink {
+                                        DiaryDetailsView(diary: item)
+                                    } label: {
+                                        MoodDiaryCell(diary: item)
+                                            .frame(height: 50)
+                                    }
+                                }
+                            } header: {
+                                Text(formattedSectionTitle(key))
+                                    .font(.system(size: 30, weight: .black))
+                            }
+                            .frame(height: 60)
+                            .padding()
+                        }
+                    }
+                }
+                HStack {
+                    Button {
+                        print("New Button Tapped")
+                        isPresenting = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30)
+                    }
+                    .frame(width: 80, height: 80)
+                    .foregroundStyle(.white)
+                    .background(Color.pink)
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                }
             }
+            .navigationTitle("Emotion Diary")
         })
+        .sheet(isPresented: $isPresenting, content: {
+            let vm = DiaryViewModel(isPresented: $isPresenting)
+            DiaryDateInputView(vm: vm)
+        })
+    }
+}
+
+extension DiaryListView {
+    // "2022-4" -> "April 2022" or "4월 2022"
+    private func formattedSectionTitle(_ id: String) -> String {
+        let dateComponents = id
+            .components(separatedBy: "-")
+            .compactMap{ Int($0) }
+        guard let year = dateComponents.first, let month = dateComponents.last else {
+            return id
+        }
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let dateComponent = DateComponents(calendar: calendar, year: year, month: month)
+        let date = dateComponent.date!
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: date)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryListView()
+        DiaryListView(vm: DiaryListViewModel())
     }
 }
