@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B857E9F2C3E5E7600A58919 /* DiaryDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B857E9E2C3E5E7600A58919 /* DiaryDetailsViewModel.swift */; };
 		5BD534B92C3D49B500266DCA /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD534B82C3D49B500266DCA /* DiaryViewModel.swift */; };
 		5BF7A2B42C3BD15D00A83767 /* MoodDiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF7A2B32C3BD15D00A83767 /* MoodDiaryCell.swift */; };
 		5BF7A2B62C3BD34700A83767 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF7A2B52C3BD34700A83767 /* DiaryListViewModel.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B857E9E2C3E5E7600A58919 /* DiaryDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailsViewModel.swift; sourceTree = "<group>"; };
 		5BD534B82C3D49B500266DCA /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		5BF7A2B32C3BD15D00A83767 /* MoodDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodDiaryCell.swift; sourceTree = "<group>"; };
 		5BF7A2B52C3BD34700A83767 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		948F9006287008D100F90257 = {
 			isa = PBXGroup;
 			children = (
+				5B857E9E2C3E5E7600A58919 /* DiaryDetailsViewModel.swift */,
 				948F9011287008D100F90257 /* EmotionDiary */,
 				948F9022287008D200F90257 /* EmotionDiaryTests */,
 				948F902C287008D200F90257 /* EmotionDiaryUITests */,
@@ -338,6 +341,7 @@
 				948F905528700A8800F90257 /* MoodDiaryStorage.swift in Sources */,
 				948F9044287009C000F90257 /* DiaryMoodInputView.swift in Sources */,
 				948F9048287009DA00F90257 /* DiaryDetailsView.swift in Sources */,
+				5B857E9F2C3E5E7600A58919 /* DiaryDetailsViewModel.swift in Sources */,
 				948F904F28700A2C00F90257 /* Mood.swift in Sources */,
 				948F905428700A8800F90257 /* Storage.swift in Sources */,
 				5BF7A2B62C3BD34700A83767 /* DiaryListViewModel.swift in Sources */,

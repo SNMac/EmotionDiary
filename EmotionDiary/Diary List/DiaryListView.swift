@@ -31,7 +31,11 @@ struct DiaryListView: View {
                                 let orderedItems = items.sorted(by: { $0.date < $1.date })
                                 ForEach(orderedItems) { item in
                                     NavigationLink {
-                                        DiaryDetailsView(diary: item)
+                                        let vm = DiaryDetailsViewModel(
+                                            diaries: $vm.list,
+                                            diary: item
+                                        )
+                                        DiaryDetailsView(vm: vm)
                                     } label: {
                                         MoodDiaryCell(diary: item)
                                             .frame(height: 50)
@@ -65,9 +69,12 @@ struct DiaryListView: View {
             .navigationTitle("Emotion Diary")
         })
         .sheet(isPresented: $isPresenting, content: {
-            let vm = DiaryViewModel(isPresented: $isPresenting)
+            let vm = DiaryViewModel(isPresented: $isPresenting, diaries: $vm.list)
             DiaryDateInputView(vm: vm)
         })
+        .onAppear {
+            vm.fetch()
+        }
     }
 }
 
@@ -93,6 +100,6 @@ extension DiaryListView {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryListView(vm: DiaryListViewModel())
+        DiaryListView(vm: DiaryListViewModel(storage: MoodDiaryStorage()))
     }
 }
